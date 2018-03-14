@@ -1,34 +1,17 @@
-#include <iostream>
 #include <fstream>
-#include <string>
-using namespace std;
+#include "System.h"
 
-class Settings
-{
+class Settings: public System{
 public:
-	static Settings& getInstance()
-	{
+	static Settings& getInstance() {
 		static Settings instance;
 		return instance;
 	}
-	int init() {
-		fstream reader;
-		reader.open("config.ini");
-		if (!reader) {
-			return 1;
-		}
-		else {
-			string setting;
-			string data;
-			while (reader >> setting >> data) {
-				setSetting(setting, data);
-			}
-		}
-		return 0;
-	}
-	void setSetting(string settingName, string data) {};
+	void init();
+	void init(std::string path);
+	void changeSettings();
 private:
-	Settings() {}
+	Settings() {};
 public:
 	Settings(Settings const&) = delete;
 	void operator=(Settings const&) = delete;
